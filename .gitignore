@@ -1,0 +1,105 @@
+# General
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# macOS specific
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# IntelliJ/IDEA related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code related
+.vscode/
+*.code-workspace
+
+# Flutter/Dart related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+.melody/
+
+# Build output
+/build/
+android/app/build/
+ios/Pods/
+ios/Flutter/Flutter.framework/
+ios/Flutter/Flutter.podspec
+ios/.symlinks/
+ios/Flutter/App.framework/
+ios/Flutter/Flutter.podspec.json
+macos/Flutter/ephemeral/
+web/main.dart.js
+web/assets/
+web/index.html
+
+# Android related
+/local.properties
+**/*.apk
+**/*.aar
+**/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio specific
+.android/
+.android/assets/
+.android/.gradle/
+.gradle/
+android/app/debug
+android/app/profile
+android/app/release
+
+# Xcode related
+xcuserdata/
+*.xcworkspace
+DerivedData/
+*.ipa
+build/
+
+# Package configurations
+.packages
+.pub-cache/
+pubspec.lock
