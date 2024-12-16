@@ -23,7 +23,7 @@ patrol:
      android:
           package_name: com.example.patrol_testing_app
      ios:
-          bundle_id: com.example.MyApp
+          bundle_id: com.example.patrolTestingApp
 
 flutter:
      uses-material-design: true
