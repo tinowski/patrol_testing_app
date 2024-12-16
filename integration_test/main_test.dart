@@ -1,9 +1,27 @@
-import 'package:flutter/material.dart'; // Import for Text and other widgets
 import 'package:flutter_test/flutter_test.dart';
 import 'package:patrol/patrol.dart';
 import 'package:patrol_testing_app/main.dart';
+import 'package:flutter/material.dart';
 
 void main() {
+  patrolTest('Main initial screen Tests', ($) async {
+    // Launch the app
+    await $.pumpWidgetAndSettle(MyApp());
+
+    // Test initial screen is LoginScreen
+    expect(find.text('Sign In'),
+        findsNWidgets(2)); // Debugging to verify duplicates
+    expect(find.text('Welcome Back'), findsOneWidget);
+
+    // Use the Key to find and interact with the "Sign In" button
+    await $(#usernameField).enterText('testuser@example.com');
+    await $(#passwordField).enterText('TestPassword123');
+    await $(#signInButton).tap();
+
+    // Test navigation to the welcome screen
+    expect(find.text('Welcome, testuser@example.com!'), findsOneWidget);
+  });
+
   patrolTest('Login validations and successful sign-in flow', ($) async {
     // Launch the app
     await $.pumpWidgetAndSettle(MyApp());
