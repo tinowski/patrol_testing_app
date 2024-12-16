@@ -103,3 +103,4 @@ build/
 .packages
 .pub-cache/
 pubspec.lock
+integration_test/test_bundle.dart

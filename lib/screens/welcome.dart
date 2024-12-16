@@ -9,10 +9,13 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthenticatedScreen(
+      username: username, // Pass the username to AuthenticatedScreen
       child: Center(
         child: Text(
           'Welcome, $username!',
+          key: Key('welcomeMessage'),
           style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center,
         ),
       ),
     );
