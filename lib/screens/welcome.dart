@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'authenticated.dart';
 
 class WelcomeScreen extends StatelessWidget {
   final String username;
@@ -7,12 +8,11 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Welcome')),
-      body: Center(
+    return AuthenticatedScreen(
+      child: Center(
         child: Text(
-          'Hello $username',
-          style: TextStyle(fontSize: 24),
+          'Welcome, $username!',
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
     );

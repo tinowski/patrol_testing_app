@@ -12,3 +12,7 @@ android:
 package_name: com.example.myapp
 ios:
 bundle_id: com.example.MyApp
+
+Running patrol tests: "patrol test -t integration_test/login_flow_test.dart"
+
+Running widgets tests: flutter test
