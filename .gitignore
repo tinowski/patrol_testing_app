@@ -104,3 +104,8 @@ build/
 .pub-cache/
 pubspec.lock
 integration_test/test_bundle.dart
+
+# FVM Version Cache
+.fvm/
+.fvmrc
+coverage/lcov.info
