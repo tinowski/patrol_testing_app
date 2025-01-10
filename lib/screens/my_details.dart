@@ -6,8 +6,7 @@ class MyDetailsScreen extends StatefulWidget {
 }
 
 class _MyDetailsScreenState extends State<MyDetailsScreen> {
-  // Track the expanded state for each section
-  List<bool> _isExpanded = [true, false, false];
+  bool _isBasicInfoExpanded = true;
 
   @override
   Widget build(BuildContext context) {
@@ -16,131 +15,85 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: ExpansionPanelList(
-            expansionCallback: (int index, bool isExpanded) {
-              setState(() {
-                // Toggle the state for the tapped section
-                _isExpanded[index] = !isExpanded;
-              });
-            },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Basic Info Section
-              ExpansionPanel(
-                canTapOnHeader: true,
-                isExpanded: _isExpanded[0],
-                headerBuilder: (context, isExpanded) {
-                  return const ListTile(
-                    key: Key('basicInfoHeader'),
-                    title: Text(
-                      'Basic Info',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  );
-                },
-                body: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        key: const Key('nameField'),
-                        decoration: const InputDecoration(labelText: 'Name'),
-                      ),
-                      const SizedBox(height: 8),
-                      TextFormField(
-                        key: const Key('surnameField'),
-                        decoration: const InputDecoration(labelText: 'Surname'),
-                      ),
-                      const SizedBox(height: 8),
-                      TextFormField(
-                        key: const Key('dobField'),
-                        decoration:
-                            const InputDecoration(labelText: 'Date of Birth'),
-                        keyboardType: TextInputType.datetime,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Availability Section
-              ExpansionPanel(
-                canTapOnHeader: true,
-                isExpanded: _isExpanded[1],
-                headerBuilder: (context, isExpanded) {
-                  return const ListTile(
-                    key: Key('availabilityHeader'),
-                    title: Text(
-                      'Availability',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  );
-                },
-                body: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        key: const Key('startingDateField'),
-                        decoration: const InputDecoration(
-                          labelText: 'Possible Starting Date',
+              // Collapsible Basic Info Card
+              Card(
+                elevation: 2,
+                child: Column(
+                  children: [
+                    // Header for Basic Info
+                    ListTile(
+                      title: const Text(
+                        'Basic Info',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        keyboardType: TextInputType.datetime,
                       ),
-                    ],
-                  ),
+                      trailing: IconButton(
+                        icon: Icon(
+                          _isBasicInfoExpanded
+                              ? Icons.expand_less
+                              : Icons.expand_more,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isBasicInfoExpanded = !_isBasicInfoExpanded;
+                          });
+                        },
+                      ),
+                    ),
+                    // Body of Basic Info
+                    if (_isBasicInfoExpanded)
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              key: const Key('nameField'),
+                              decoration: const InputDecoration(
+                                labelText: 'Name',
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              key: const Key('surnameField'),
+                              decoration: const InputDecoration(
+                                labelText: 'Surname',
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            TextFormField(
+                              key: const Key('dobField'),
+                              decoration: const InputDecoration(
+                                labelText: 'Date of Birth',
+                              ),
+                              keyboardType: TextInputType.datetime,
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
                 ),
               ),
+              const SizedBox(height: 16),
 
-              // Physical Details Section
-              ExpansionPanel(
-                canTapOnHeader: true,
-                isExpanded: _isExpanded[2],
-                headerBuilder: (context, isExpanded) {
-                  return const ListTile(
-                    key: Key('physicalDetailsHeader'),
-                    title: Text(
-                      'Physical Details',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+              // Save Button
+              ElevatedButton(
+                key: const Key('saveButton'),
+                onPressed: () {
+                  // Add save logic here
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Details saved!')),
                   );
                 },
-                body: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        key: const Key('heightField'),
-                        decoration:
-                            const InputDecoration(labelText: 'Height (cm)'),
-                        keyboardType: TextInputType.number,
-                      ),
-                      const SizedBox(height: 8),
-                      TextFormField(
-                        key: const Key('weightField'),
-                        decoration:
-                            const InputDecoration(labelText: 'Weight (kg)'),
-                        keyboardType: TextInputType.number,
-                      ),
-                    ],
-                  ),
-                ),
+                child: const Text('Save'),
               ),
             ],
           ),
         ),
-      ),
-      floatingActionButton: ElevatedButton(
-        key: const Key('saveButton'),
-        onPressed: () {
-          // Add save logic here
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Details saved successfully!')),
-          );
-        },
-        child: const Text('Save Details'),
       ),
     );
   }
