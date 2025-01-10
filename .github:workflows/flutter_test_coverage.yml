@@ -1,0 +1,60 @@
+name: Flutter Test and Coverage Check
+
+on:
+     pull_request:
+          branches:
+               - master
+
+jobs:
+     test:
+          name: Run Tests and Verify Coverage
+          runs-on: ubuntu-latest
+
+          steps:
+               # Step 1: Check out the repository
+               - name: Checkout code
+                 uses: actions/checkout@v3
+
+               # Step 2: Set up Flutter
+               - name: Set up Flutter
+                 uses: subosito/flutter-action@v2
+                 with:
+                      flutter-version: "stable"
+
+               # Step 3: Install dependencies
+               - name: Install dependencies
+                 run: flutter pub get
+
+               # Step 4: Run tests with coverage
+               - name: Run tests with coverage
+                 run: |
+                      flutter test --coverage
+                      if [ ! -f coverage/lcov.info ]; then
+                        echo "Coverage report not generated!"
+                        exit 1
+                      fi
+
+               # Step 5: Verify coverage threshold (Optional)
+               - name: Verify coverage threshold
+                 run: |
+                      COVERAGE=$(genhtml coverage/lcov.info --quiet --output-directory coverage/html --branch-coverage | grep -oP '\d+(?=%)' | head -n 1)
+                      echo "Current coverage: $COVERAGE%"
+                      REQUIRED_COVERAGE=80
+                      if [ "$COVERAGE" -lt "$REQUIRED_COVERAGE" ]; then
+                        echo "Coverage below $REQUIRED_COVERAGE%. Failing the job."
+                        exit 1
+                      fi
+
+               # Step 6: Upload coverage results (Optional)
+               - name: Upload coverage results as artifact
+                 uses: actions/upload-artifact@v3
+                 with:
+                      name: coverage-report
+                      path: coverage/html
+
+               # Step 7: Post coverage report to PR (Optional)
+               - name: Upload coverage to Codecov
+                 uses: codecov/codecov-action@v3
+                 with:
+                      file: coverage/lcov.info
+                      fail_ci_if_error: true
