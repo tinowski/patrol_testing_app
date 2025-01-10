@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
 
-class LogoutScreen extends StatelessWidget {
+class LogoutScreen extends StatefulWidget {
+  @override
+  _LogoutScreenState createState() => _LogoutScreenState();
+}
+
+class _LogoutScreenState extends State<LogoutScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Perform logout logic and navigate
+    Future.microtask(() {
+      if (mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false,
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Perform logout logic here (e.g., clearing user data, tokens, etc.)
-    Future.delayed(Duration.zero, () {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-        (route) => false,
-      );
-    });
-
     return Scaffold(
       body: Center(
         child: CircularProgressIndicator(),

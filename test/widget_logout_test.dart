@@ -26,7 +26,7 @@ void main() {
       ),
     );
 
-    // Act: Simulate the passage of time to trigger navigation
+    // Act: Simulate the passage of time
     await tester.pumpAndSettle();
 
     // Assert: Verify that LoginScreen is displayed
