@@ -45,4 +45,16 @@ flutter pub add patrol --dev
 
 ![alt text](<Screenshot 2025-01-10 at 11.02.52.png>)
 
+## Test coverage report
+
+`flutter test --coverage`
+
+### Generate an HTML report:
+
+`genhtml coverage/lcov.info -o coverage/html`
+
+### Open the report:
+
+`open coverage/html/index.html`
+
 ## Allure reporting
